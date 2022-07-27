@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="TheFairyNails" Class="DBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=MSI\SQLEXPRESS;Initial Catalog=TheFairyNails;Integrated Security=True" SettingsObjectName="FairyNails.Properties.Settings" SettingsPropertyName="TheFairyNailsConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Customer" Member="Customers">
+    <Type Name="Customer">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="cellphone" Type="System.String" DbType="VarChar(20)" CanBeNull="true" />
+      <Column Name="point" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sex" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="avatar" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Association Name="Customer_Work" Member="Works" ThisKey="id" OtherKey="customer_id" Type="Work" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Service" Member="Services">
+    <Type Name="Service">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="price" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Service_Work" Member="Works" ThisKey="id" OtherKey="service_id" Type="Work" />
+      <Association Name="ServiceType_Service" Member="ServiceType" ThisKey="type" OtherKey="id" Type="ServiceType" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ServiceType" Member="ServiceTypes">
+    <Type Name="ServiceType">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="ServiceType_Service" Member="Services" ThisKey="id" OtherKey="type" Type="Service" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Staff" Member="Staffs">
+    <Type Name="Staff">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="cellphone" Type="System.String" DbType="NChar(20)" CanBeNull="true" />
+      <Column Name="address" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="birthday" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="avatar" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
+      <Column Name="sex" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Staff_Work" Member="Works" ThisKey="id" OtherKey="staff_id" Type="Work" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[Work]" Member="Works">
+    <Type Name="Work">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="customer_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="staff_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="service_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Customer_Work" Member="Customer" ThisKey="customer_id" OtherKey="id" Type="Customer" IsForeignKey="true" />
+      <Association Name="Service_Work" Member="Service" ThisKey="service_id" OtherKey="id" Type="Service" IsForeignKey="true" />
+      <Association Name="Staff_Work" Member="Staff" ThisKey="staff_id" OtherKey="id" Type="Staff" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
